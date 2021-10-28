@@ -1,0 +1,56 @@
+
+<div class="container"><br>
+ <div class="card-deck mb-5 text-center">
+    <div class="card mb-5 shadow-sm">
+     <h4>Anlık vakalar(<%= Time.now.strftime("%d/%m/%Y %H:%M")%>)</h4>
+   <table class="table">
+     <thead>
+       <tr>
+         <th scope="col">Yeni vaka</th>
+         <th scope="col">Yeni ölüm</th>
+         <th scope="col">Aktif vaka</th>
+       </tr>
+     </thead>
+     <tbody>
+       <tr>
+         <td><% if @anlik["result"][0]["newCases"] == "" %><%="Veri giriliyor..."%><% else %>  <%= @anlik["result"][0]["newCases"] %><%end%></td>
+         <td><% if @anlik["result"][0]["newDeaths"] == "" %><%="Veri giriliyor..."%><% else %>  <%= @anlik["result"][0]["newDeaths"] %><%end%></td>
+         <td><% if @anlik["result"][0]["activeCases"] == "" %><%="Veri giriliyor..."%><% else %>  <%= @anlik["result"][0]["activeCases"] %><%end%></td>
+       </tr>
+     </tbody>
+   </table>
+  </div>
+ </div>
+ <div class="card-deck mb-5 text-center">
+ <div class="card mb-5 shadow-sm">
+ <h4>Kayıtlara geçmiş toplam vaka sayısı (Tüm dünya)</h4>
+ <table class="table">
+     <thead>
+       <tr>
+         <th scope="col">Toplam ölüm</th>
+         <th scope="col">Toplam vaka</th>
+         <th scope="col">Toplam iyileşme</th>
+       </tr>
+     </thead>
+     <tbody>
+       <tr>
+         <td><%= @toplam["result"]["totalDeaths"]%></td>
+         <td><%= @toplam["result"]["totalCases"]%></td>
+         <td><%= @toplam["result"]["totalRecovered"]%></td>
+       </tr>
+     </tbody>
+   </table>
+   </div>
+ </div>
+ <h4 class="text-center">Corona virüs haberleri</h4>
+ <% @haberler["result"].each do |result,data| %>
+ <div class="card-deck mb-5 text-center">
+  <img src="<%= result["image"] %>">
+  <div class="card-body">
+    <h5 class="card-title"><%= result["name"]%></h5>
+    <p class="card-text"><%= result["description"] %></p>
+    <p class="card-text"><small class="text-muted">Kaynak : <%= result["source"]%></small></p>
+  </div>
+</div>
+<%end%>
+</div>
